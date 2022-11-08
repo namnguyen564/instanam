@@ -35,7 +35,7 @@ def homepage():
 
     posts = []
 
-    conn = psycopg2.connect("dbname=instanam")
+    conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
 
     display_photos = cur.execute('SELECT * FROM users_post')
@@ -58,7 +58,7 @@ def homepage():
 #LOGIN/LOGOUT
 @app.route("/loginpageaction", methods=['POST'])
 def loginpageaction():
-    conn = psycopg2.connect("dbname=instanam")
+    conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     
     username = request.form['username']    
@@ -119,7 +119,7 @@ def signuppage():
 
 @app.route("/signuppageaction", methods=['POST'])   
 def signuppagaction():
-    conn = psycopg2.connect("dbname=instanam")
+    conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     name = request.form.get('name')
     username = request.form.get('username')
@@ -160,7 +160,7 @@ def postimagepageaction():
     
     image_id = response['public_id']
 
-    conn = psycopg2.connect("dbname=instanam")
+    conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
 
     # user_id = session['user_id']
