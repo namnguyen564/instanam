@@ -10,7 +10,7 @@ CREATE TABLE users(
     );
 
 CREATE TABLE users_post(
-    id SERIAL PRIMARY KEY,
+    image_id SERIAL PRIMARY KEY,
     name TEXT,
     img_url TEXT,
     description TEXT

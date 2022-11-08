@@ -32,5 +32,13 @@
     <button type="submit" class="searchButton" >Log Out</button>
   </form>
 
+  {% for user_id,image_id,name,img_url,description in posts %}
+    <li>
+        {{name}}
+        <img src={{img_url}}>
+        {{description}}
+    </li>
+  {% endfor %}
+
 </body>
 </html>

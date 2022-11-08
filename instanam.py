@@ -4,6 +4,8 @@ import bcrypt
 import cloudinary
 import cloudinary.uploader
 import os
+DB_URL = os.environ.get('DATABASE_URL', 'dbname=food_truck')
+
 CLOUDINARY_CLOUD = os.environ.get('CLOUDINARY_CLOUD')
 CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
 CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
@@ -28,10 +30,29 @@ def index():
 @app.route("/homepage", methods=['GET'])
 def homepage():
     # if session['name'] == True:
-    name = session['name'] 
+    logged_name = session['name'] 
     username = session['username']
 
-    return render_template("homepage.html",name=name,username=username)
+    posts = []
+
+    conn = psycopg2.connect("dbname=instanam")
+    cur = conn.cursor()
+
+    display_photos = cur.execute('SELECT * FROM users_post')
+    display_photos = cur.fetchall()
+    
+    
+
+    for row in display_photos:
+        image_id,name,img_url,description = row
+        posts.append([image_id,name,img_url,description])
+
+
+    cur.close()
+    conn.close()
+    
+    return render_template("homepage.html",name=logged_name,username=username)
+
 
 
 #LOGIN/LOGOUT
@@ -53,10 +74,11 @@ def loginpageaction():
     if valid:
         print("match")
         # session.pop('incorrect', default=None)
-        cur.execute(f'SELECT name,username FROM users WHERE username = %s', [username])
+        cur.execute(f'SELECT user_id,name,username FROM users WHERE username = %s', [username])
         user_reccord = cur.fetchone()
-        name,username = user_reccord
+        user_id,name,username = user_reccord
        
+        session['id'] = user_id
         session['name'] = name
         session['username'] = username
         cur.close()
@@ -134,20 +156,39 @@ def postimagepage():
 @app.route("/postimagepageaction", methods=['POST'])
 def postimagepageaction():
     image = request.files['image']
-
     response = cloudinary.uploader.upload(image, filename=image.filename)
-    
     
     image_id = response['public_id']
 
+    conn = psycopg2.connect("dbname=instanam")
+    cur = conn.cursor()
+
+    # user_id = session['user_id']
+    name = session['name']
+    description = request.form.get('description')
+    cloudinary_image = cloudinary.CloudinaryImage(image_id)
+    img_url = cloudinary_image.image()
+    cur.execute('INSERT INTO users_post (image_id,name,img_url,description) VALUES (%s, %s, %s, %s)', [image_id,name,img_url,description])
+
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    
     return redirect(url_for('modified', id=image_id))
 
 
 
-@app.route("/modified/<id>",methods=['POST'])
+@app.route("/modified/<id>")
 def modified(id):
+    # conn = psycopg2.connect("dbname=instanam")
+    # cur = conn.cursor()
+
     cloudinary_image = cloudinary.CloudinaryImage(id)
 
+    # img_url = cloudinary_image = cloudinary.CloudinaryImage(id)
+    # description = 
+    # cur.execute('INSERT INTO users_post (id,img_url,description) VALUES (%s, %s, %s)', [id,img_url,description])
     original_image = cloudinary_image.image()
 
     # cloudinary_image = cloudinary.Cloudinary_image.image()
@@ -155,8 +196,8 @@ def modified(id):
 
 
 
-    return render_template('modified.html', id=id,original_image=original_image)
-    # return redirect("/homepageaction")
+    # return render_template('modified.html', original_image=original_image)
+    return redirect("/homepageaction")
 
 
 
