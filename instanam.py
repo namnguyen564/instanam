@@ -4,7 +4,7 @@ import bcrypt
 import cloudinary
 import cloudinary.uploader
 import os
-DB_URL = os.environ.get('DATABASE_URL', 'dbname=food_truck')
+DB_URL = os.environ.get('DATABASE_URL', 'dbname=instanam')
 
 CLOUDINARY_CLOUD = os.environ.get('CLOUDINARY_CLOUD')
 CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
