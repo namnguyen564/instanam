@@ -8,8 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Home Page</h1>
-    
+    <h1 id="title">Home Page</h1>
+    <p> {{name}} </p>
+    <p> {{username}}</p>
     <div class="wrap">
         <form method="POST" action="/displayuserspage"></form>
    <div class="search">
@@ -23,9 +24,13 @@
     <button type="submit" class="searchButton" >Post</button>
   </form>
 
-  <form method="get" action="/profilepage">
+  <form method="get" action="/profilepageaction">
     <button type="submit" class="searchButton" >Profile</button>
   </form>
-      
+
+  <form method="get" action="/logoutpageaction">
+    <button type="submit" class="searchButton" >Log Out</button>
+  </form>
+
 </body>
 </html>

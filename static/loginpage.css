@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
 #title{
     text-align: center;
-    font-family: 'Cabin', sans-serif;
-    font-size: 50px;
-    text-decoration: underline;
+    font-family: 'Righteous', cursive;
+    font-size: 80px;
+    /* text-decoration: underline; */
     padding-top: 40px;
 } 
 
@@ -39,6 +39,7 @@ html {
   
   .login-form-field {
     border: none;
+    width:200px;
     border-bottom: 1px solid #e87979;
     margin-bottom: 10px;
     border-radius: 3px;
@@ -54,6 +55,18 @@ html {
     color: white;
     font-weight: bold;
     background-color: #3a3a3a;
+    cursor: pointer;
+    outline: none;
+  }
+
+  #signupbutton{
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    color: rgb(199, 29, 29);
+    font-weight: bold;
+    background-color: #eb8888;
     cursor: pointer;
     outline: none;
   }

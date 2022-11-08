@@ -9,15 +9,22 @@
 </head>
 <body>
 
- <h1 id="title">InstaNam</h1>
+ <h1 id="title">INSTANAM</h1>
+ <!-- {% if incorrect %}
+    {{incorrect}}
+ {% endif %} -->
 
- <form id="login-form" method="POST" action="/homepageaction">
+ {% if session.incorrect %}
+ {{session.incorrect}}
+{% endif %}
+ <form id="login-form" method="POST" action="/loginpageaction">
     <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
     <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
     <input type="submit" value="Login" id="login-form-submit">
+   
   </form>
 
-  <button><a href="/signuppage">Sign Up!</a></button>
+  <button id="signupbutton"><a href="/signuppage">Sign Up!</a></button>
 
  <!-- <form method="POST" action="/add_menu_item_action">
     <label>Email <input type ="text" name="email"></label>
