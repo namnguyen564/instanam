@@ -4,22 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='/templates/javascript/comment.js'></script>
     <link rel = "stylesheet" href="/static/homepage.css">
+    
     <title>Document</title>
 </head>
 <body>
+   
+  
+
+
+
+
+
+
+
+
     <h1 id="title">Home Page</h1>
     <p> {{name}} </p>
     <p> {{username}}</p>
-    <div class="wrap">
-        <form method="POST" action="/displayuserspage"></form>
-   <div class="search">
-    <form method="POST" action="/displayuserspage">
-      <input type="text" class="searchTerm" placeholder="Search For Other Users">
+
+    <!-- <div class="wrap">
+        <form method="POST" action="/displayuserspageaction"></form>
+   <div class="search"> -->
+    <form method="POST" action="/displayuserspageaction">
+      <input type="text" class="searchTerm" name = "search" placeholder="Search For Other Users">
       <button type="submit" class="searchButton">Search</button>
     </form>
    </div>
 </div>
+
 <form method="POST" action="/postimagepage">
     <button type="submit" class="searchButton" >Post</button>
   </form>
@@ -32,13 +46,26 @@
     <button type="submit" class="searchButton" >Log Out</button>
   </form>
 
-  {% for user_id,image_id,name,img_url,description in posts %}
-    <li>
+  {% for image_id,name,img_url,description,like_counter in posts %}
+    <div class="container">
         {{name}}
         <img src={{img_url}}>
-        {{description}}
-    </li>
+        <p1>{{description}}</p1>
+        <form method="POST" action="/likebuttonaction">
+          
+          <button type="hidden" value = {{image_id}} name = "image_id">Like</button>
+        </form>
+        <!-- <form  action="/commentform"><button>Comment</button></form> -->
+        {{like_counter}} Likes
+         <!-- <button data-modal-target="#modal">Comment</button></form> -->
+
+
+     
+  
+  
+    </div>
   {% endfor %}
+
 
 </body>
 </html>

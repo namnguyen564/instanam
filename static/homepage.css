@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+
+
 #title{
   text-align: center;
   font-family: 'Righteous', cursive;
@@ -11,3 +14,25 @@ html {
   height: 100%;
   background-color: blanchedalmond;
 }
+
+
+.container {
+  width: 400px;
+  height: auto;
+  justify-content: center;
+  display: flex;
+  margin:auto;
+  padding-bottom: 20px;
+  background-color: rgb(117, 117, 117);
+  border-color: rgb(45, 45, 45);
+  border-style: solid;
+  padding: 20px;
+}
+
+/* Resize images */
+.container img {
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+

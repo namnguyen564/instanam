@@ -4,6 +4,7 @@ import bcrypt
 import cloudinary
 import cloudinary.uploader
 import os
+
 DB_URL = os.environ.get('DATABASE_URL', 'dbname=instanam')
 
 CLOUDINARY_CLOUD = os.environ.get('CLOUDINARY_CLOUD')
@@ -44,14 +45,14 @@ def homepage():
     
 
     for row in display_photos:
-        image_id,name,img_url,description = row
-        posts.append([image_id,name,img_url,description])
+        image_id,name,img_url,description,like_counter = row
+        posts.append([image_id,name,img_url,description,like_counter])
 
 
     cur.close()
     conn.close()
     
-    return render_template("homepage.html",name=logged_name,username=username)
+    return render_template("homepage.html",name=logged_name,username=username,posts=posts)
 
 
 
@@ -73,8 +74,7 @@ def loginpageaction():
     
     if valid:
         print("match")
-        # session.pop('incorrect', default=None)
-        cur.execute(f'SELECT user_id,name,username FROM users WHERE username = %s', [username])
+        cur.execute(f'SELECT id,name,username FROM users WHERE username = %s', [username])
         user_reccord = cur.fetchone()
         user_id,name,username = user_reccord
        
@@ -90,15 +90,6 @@ def loginpageaction():
         
         return redirect('/')
 
-    # cur.execute(f'SELECT id,name, FROM users WHERE username = %s AND password = %s', [username,password])
-
-    # user_record = cur.fetchone()
-    # user_id, sql_select_email = user_record
-
-    # cur.close()
-    # conn.close()
-    
-    # return redirect("/homepage")
 
 @app.route("/logoutpageaction")
 def logoutpageaction():
@@ -141,9 +132,41 @@ def signuppagaction():
 
 
 #USER DISPLAY PAGE
-@app.route("/displayuserspage",methods=['POST'])
+@app.route("/displayuserspage")
 def displayuserspage():
-    return render_template("displayuserspage.html")
+    # name = session['searched_name']
+    # username = session['searched_username']
+    # return render_template('/displayuserspage.html', name = name,username=username)
+    return render_template('/displayuserspage.html')
+
+
+@app.route("/displayuserspageaction",methods=['POST'])
+def displayuserspageaction():
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()
+    searched = request.form.get('search')
+    print(searched)
+    result = cur.execute(f'SELECT name,username FROM users WHERE username LIKE %pop%')
+    # result = cur.execute(f'SELECT name,username FROM users WHERE username LIKE =  %pop%' , [searched])
+    # result = cur.execute('SELECT name FROM users')
+    result = cur.fetchone()
+    print(result)
+    name = result
+  
+    print("hello")
+    # session['searched_username'] = username
+    # session['sear']
+
+    
+    cur.close()
+    conn.close()
+
+
+    
+    
+    
+
+    return redirect ('/displayuserspage')
 
 
 
@@ -167,37 +190,17 @@ def postimagepageaction():
     name = session['name']
     description = request.form.get('description')
     cloudinary_image = cloudinary.CloudinaryImage(image_id)
-    img_url = cloudinary_image.image()
+    # img_url = cloudinary_image.image()
+    img_url = cloudinary_image.build_url()
     cur.execute('INSERT INTO users_post (image_id,name,img_url,description) VALUES (%s, %s, %s, %s)', [image_id,name,img_url,description])
-
+    print(img_url)
 
     conn.commit()
     cur.close()
     conn.close()
     
-    return redirect(url_for('modified', id=image_id))
+    return redirect("/homepage")
 
-
-
-@app.route("/modified/<id>")
-def modified(id):
-    # conn = psycopg2.connect("dbname=instanam")
-    # cur = conn.cursor()
-
-    cloudinary_image = cloudinary.CloudinaryImage(id)
-
-    # img_url = cloudinary_image = cloudinary.CloudinaryImage(id)
-    # description = 
-    # cur.execute('INSERT INTO users_post (id,img_url,description) VALUES (%s, %s, %s)', [id,img_url,description])
-    original_image = cloudinary_image.image()
-
-    # cloudinary_image = cloudinary.Cloudinary_image.image()
-
-
-
-
-    # return render_template('modified.html', original_image=original_image)
-    return redirect("/homepageaction")
 
 
 
@@ -206,13 +209,53 @@ def modified(id):
 #PROFILE PAGE
 @app.route("/profilepageaction",methods=['GET'])
 def profilepageaction():
+    # conn = psycopg2.connect(DB_URL)
+    # cur = conn.cursor()
+
+    # id = session['id']
+
+    # posts = []
+    # results = cur.execute(f'SELECT name,img_url,description FROM users_post WHERE id = %s', [id])
+
+    # results = cur.fetchall()
+    
+    
+
+    # for row in results:
+    #     name,img_url,description = row
+    #     posts.append([name,img_url,description])
+
+
+
+
     return redirect("/profilepage")
 
 @app.route("/profilepage",methods=['GET'])
 def profilepage():
     name = session['name'] 
     username = session['username']
-    return render_template("profilepage.html",name=name,username=username)
+
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor() 
+
+    name = session['name']
+
+    posts = []
+    results = cur.execute(f'SELECT * FROM users_post WHERE name = %s', [name])
+
+    results = cur.fetchall()
+    
+    
+
+    for row in results:
+        image_id,name,img_url,description,like_counter = row
+        posts.append([image_id,name,img_url,description,like_counter])
+
+    
+    cur.close()
+    conn.close()
+
+    return render_template("profilepage.html",name=name,username=username,posts=posts)
 
 
 
@@ -235,11 +278,45 @@ def followersepage():
     return render_template("followerspage.html")
 
 
+@app.route("/followpageaction",methods=['GET'])
+def followpageaction():
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()   
+    name = session['name']
+    username = session['username']
+    cur.execute('INSERT INTO users_following (name_following_name,following_username) VALUES (%s, %s)', [name,username])
+    conn.commit()
+    cur.close() 
+    conn.close()
+    # cur.execute('UPDATE users SET follower_count) VALUES (%s, %s, %s, %s)', [])
+    return redirect('/profilepageaction')
 
 
+@app.route('/likebuttonaction',methods=['POST'])
+def likebuttonaction():
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()
+    image_id = request.form.get('image_id')
+    print(image_id)
+    cur.execute('UPDATE users_post SET like_counter = like_counter + 1 WHERE image_id = %s',[image_id])
+    conn.commit()
+    cur.close() 
+    conn.close()
+    return redirect('/homepage')
+    
 
+  
 if __name__ == '__main__':
     # Import the variables from the .env file
     from dotenv import load_dotenv
     # Start the server
     app.run(debug=True)
+
+
+
+#following and followers list
+#fix username login
+#search bar result
+#follow button
+#clean css
+#Like comment
