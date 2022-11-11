@@ -15,11 +15,16 @@
     <p1>{{username}}</p1>
 
     {% for image_id,post_name,post_img_url,post_description,like_counter in posts %}
+    <div>
+      
+
+    </div>
     <div class="container">
         {{post_name}}
         <img src={{post_img_url}}>
         <p1>{{post_description}}</p1>
     </div>
+
   {% endfor %}
 
 
@@ -40,8 +45,8 @@
         EXAMPLE
       </div>
     </div>
-   <div id="'overlay"></div> -->
-
+   <div id="'overlay"></div>
+ -->
 
 
       <form method="get" action="/followerspageaction">

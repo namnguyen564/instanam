@@ -17,7 +17,10 @@ CREATE TABLE users_post(
     name TEXT,
     img_url TEXT,
     description TEXT,
-    like_counter INTEGER
+    like_counter INTEGER,
+    comments_name TEXT,
+    comments_username TEXT,
+    comments TEXT
     );
 
 CREATE TABLE users_followers (
@@ -25,6 +28,7 @@ CREATE TABLE users_followers (
     name_followers_name TEXT,
     followers_username TEXT
     );
+
 
 CREATE TABLE users_following (
     users_following_id SERIAL PRIMARY KEY,

@@ -1,4 +1,4 @@
-import psycopg2
+import psycopg2 
 from flask import Flask, make_response, render_template, request, redirect,session,url_for
 import bcrypt
 import cloudinary
@@ -45,15 +45,15 @@ def homepage():
     
 
     for row in display_photos:
-        image_id,name,img_url,description,like_counter = row
-        posts.append([image_id,name,img_url,description,like_counter])
+        image_id,name,img_url,description,like_counter,comments_name,comments_username,comments = row
+        posts.append([image_id,name,img_url,description,like_counter,comments_name,comments_username,comments])
 
 
     cur.close()
     conn.close()
     
     return render_template("homepage.html",name=logged_name,username=username,posts=posts)
-
+    
 
 
 #LOGIN/LOGOUT
@@ -132,12 +132,12 @@ def signuppagaction():
 
 
 #USER DISPLAY PAGE
-@app.route("/displayuserspage")
-def displayuserspage():
-    # name = session['searched_name']
-    # username = session['searched_username']
-    # return render_template('/displayuserspage.html', name = name,username=username)
-    return render_template('/displayuserspage.html')
+# @app.route("/displayuserspage")
+# def displayuserspage():
+#     # name = session['searched_name']
+#     # username = session['searched_username']
+#     # return render_template('/displayuserspage.html', name = name,username=username)
+#     return render_template('/displayuserspage.html')
 
 
 @app.route("/displayuserspageaction",methods=['POST'])
@@ -145,28 +145,32 @@ def displayuserspageaction():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     searched = request.form.get('search')
+    users = []
     print(searched)
-    result = cur.execute(f'SELECT name,username FROM users WHERE username LIKE %pop%')
-    # result = cur.execute(f'SELECT name,username FROM users WHERE username LIKE =  %pop%' , [searched])
-    # result = cur.execute('SELECT name FROM users')
-    result = cur.fetchone()
+    # result = cur.execute('SELECT name,username FROM users WHERE username LIKE 'pop% )
+    result = cur.execute("SELECT name,username FROM users WHERE username LIKE '%%' || %s || '%%' ", [searched])
+    # "select * from table where {} like '%%' || %s || '%%'"
+    # result = cur.execute( 'SELECT name FROM users')
+    result = cur.fetchall()
     print(result)
-    name = result
+    
+
+    
+    for row in result:
+        name,username = row
+        users.append([name,username])
+        
   
     print("hello")
     # session['searched_username'] = username
     # session['sear']
 
-    
+
     cur.close()
     conn.close()
 
 
-    
-    
-    
-
-    return redirect ('/displayuserspage')
+    return render_template('/displayuserspage.html',users = users)
 
 
 
