@@ -5,17 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel = "stylesheet" href="/static/postimagepage.css">
 </head>
 <body>
 <!-- <form method="POST" action = "/postimagepageaction">
     <input type="text" class="searchTerm" placeholder="Description...">
     <input type="submit" value="Post" id="post-form-submit">
 </form> -->
-<p1>Post Image</p1>
+<p1 id = 'title' class="column">Post Image</p1>
+<div id="container">
+
 <form action="/postimagepageaction" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" accept="image/*" required>
-    <label>Description: <input type ="text" name="description"></label>
-    <input type="submit" value="upload">
+    <input type="file" name="image" accept="image/*" required class = 'column'>
+    <label id = 'text'>Description: <input type ="text" name="description" class = 'column'></label>
+    <input type="submit" class = 'column'value="upload">
 </form>
+</div>
 </body>
 </html>

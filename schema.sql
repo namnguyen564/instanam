@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS users_post;
 DROP TABLE IF EXISTS user_followers;
 DROP TABLE IF EXISTS users_following;
 
+
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     name TEXT,
@@ -17,11 +18,10 @@ CREATE TABLE users_post(
     name TEXT,
     img_url TEXT,
     description TEXT,
-    like_counter INTEGER,
-    comments_name TEXT,
-    comments_username TEXT,
-    comments TEXT
+    like_counter INTEGER
     );
+
+
 
 CREATE TABLE users_followers (
     user_followers_id SERIAL PRIMARY KEY,

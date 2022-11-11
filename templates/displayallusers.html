@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel = "stylesheet"  href="/static/displayuserpage.css">
+    <link rel = "stylesheet" href="/static/displayallusers.css">
 </head>
 <body>
-    <h1 id="title">Search Results:</h1>
+    <h1 id="title">All Users:</h1>
     
     {% for id,name,username in users %}
     <li id="list">
         <p1 id = 'name'>{{name}}</p1>
         <p></p>
         <p1 id ='username'>Username: {{username}}</p1>
-        <form action = '/viewprofilepage' method="POST">
-            <button type="hidden" class='bn33' name = name value = {{name}}>View Page</button>
+        <form method="POST" action = '/viewprofilepage' >
+            <button type="hidden" class='bn33' name = "name" value ={{name}}>View Page</button>
             </form>
     </li>
     {% endfor %}

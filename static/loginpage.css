@@ -32,6 +32,7 @@ html {
     justify-items: center;
     align-items: center;
   }
+
   
   .login-form-field::placeholder {
     color: #3a3a3a;
@@ -54,20 +55,48 @@ html {
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    background-color: #3a3a3a;
+    background-image: linear-gradient(45deg, #4568dc, #b06ab3);
     cursor: pointer;
     outline: none;
   }
 
-  #signupbutton{
+  .bn33 {
+    border: 5em;
+    height:44px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    -webkit-transform: translate(0);
+    transform: translate(0);
+    background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+    padding: 0.7em 2em;
+    border-radius: 1px;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+    -webkit-transition: box-shadow 0.25s;
+    transition: box-shadow 0.25s;
+    color: white;
+  }
+
+    
+  #login-form {
+    align-self: flex-start;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+  }
+
+
+
+  #test-form-submit {
     width: 100%;
     padding: 7px;
     border: none;
     border-radius: 5px;
-    color: rgb(199, 29, 29);
+    color: white;
     font-weight: bold;
-    background-color: #eb8888;
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
     cursor: pointer;
     outline: none;
+    /* position: relative;
+    bottom: 115px; */
   }
-  

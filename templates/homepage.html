@@ -51,29 +51,40 @@
     <button type="submit" class="profilebutton" >Profile</button>
   </form>
 
-  
-  {% for image_id,name,img_url,description,like_counter,comments_name,comments_username,comments in posts %}
+  <form method="get" action="/displayallusers">
+    <button type="submit" class="allusersbutton" >Users</button>
+  </form>
+
+
+  {% for image_id,name,img_url,description,like_counter in posts %}
   <div id="complete">
-  <div id="commentbox">
+    <div id="commentbox">
     <div id="commenttitle">
-      <h1>     Comments:</H1>
+      <h1>Comments:</H1>
     </div>
     <div class="line"></div>
+    
+      <form action="/commentaction" method="POST">
+      <input type="text" class="commentbar"   name = "comment" placeholder="Comment Your Thoughts!" >
+      <button type="submit" class="commentbutton"  type="hidden" value = {{image_id}} name = "image_id"></button>
+      </form>
     </div>
+
     <div class="container">
         <h1 id="name">{{name}}</h1>
         <img src={{img_url}}>
         <p1 id ="description">{{description}}</p1>
         <form method="POST" action="/likebuttonaction">
           
-          <button type="hidden" value = {{image_id}} name = "image_id">Like</button>
+          <button type="hidden" class = 'like' value = {{image_id}} name = "image_id">Like</button>
         </form>
-      
+        
         <!-- <form  action="/commentform"><button>Comment</button></form> -->
-        {{like_counter}} Likes
+       <p1 id="like">{{like_counter}} Likes</p1> 
          <!-- <button data-modal-target="#modal">Comment</button></form> -->
     </div>
   </div>
+   
   {% endfor %}
 
 

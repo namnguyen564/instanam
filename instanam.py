@@ -28,7 +28,7 @@ def index():
     return render_template('loginpage.html')
 
 #HOME PAGE
-@app.route("/homepage", methods=['GET'])
+@app.route("/homepage", methods=['GET'])    
 def homepage():
     # if session['name'] == True:
     logged_name = session['name'] 
@@ -45,9 +45,12 @@ def homepage():
     
 
     for row in display_photos:
-        image_id,name,img_url,description,like_counter,comments_name,comments_username,comments = row
-        posts.append([image_id,name,img_url,description,like_counter,comments_name,comments_username,comments])
+        image_id,name,img_url,description,like_counter = row
+        posts.append([image_id,name,img_url,description,like_counter])
 
+  
+
+    
 
     cur.close()
     conn.close()
@@ -69,6 +72,11 @@ def loginpageaction():
 
     hashed_password = cur.execute(f'SELECT password_hash FROM users WHERE username = %s', [username])
     hashed_password, = cur.fetchone()
+    print(hashed_password)
+    # if hashed_password is None:
+    #     session['incorrect'] = "Incorrect Username or Password"
+    #     return redirect('/')
+
     print(password)
     valid = bcrypt.checkpw(password.encode(), hashed_password.encode())
     
@@ -148,7 +156,7 @@ def displayuserspageaction():
     users = []
     print(searched)
     # result = cur.execute('SELECT name,username FROM users WHERE username LIKE 'pop% )
-    result = cur.execute("SELECT name,username FROM users WHERE username LIKE '%%' || %s || '%%' ", [searched])
+    result = cur.execute("SELECT id,name,username FROM users WHERE username LIKE '%%' || %s || '%%' ", [searched])
     # "select * from table where {} like '%%' || %s || '%%'"
     # result = cur.execute( 'SELECT name FROM users')
     result = cur.fetchall()
@@ -157,8 +165,8 @@ def displayuserspageaction():
 
     
     for row in result:
-        name,username = row
-        users.append([name,username])
+        id,name,username = row
+        users.append([id,name,username])
         
   
     print("hello")
@@ -242,9 +250,9 @@ def profilepage():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor() 
 
-    name = session['name']
-
+   
     posts = []
+    postss = []
     results = cur.execute(f'SELECT * FROM users_post WHERE name = %s', [name])
 
     results = cur.fetchall()
@@ -255,11 +263,19 @@ def profilepage():
         image_id,name,img_url,description,like_counter = row
         posts.append([image_id,name,img_url,description,like_counter])
 
-    
+    xd = cur.execute(f'SELECT follower_count,following_count FROM users WHERE name = %s', [name])
+
+    xd = cur.fetchall()
+
+    for follow in xd:
+        follower_count,following_count = follow
+        postss.append([follower_count,following_count])
+
+
     cur.close()
     conn.close()
 
-    return render_template("profilepage.html",name=name,username=username,posts=posts)
+    return render_template("profilepage.html",name=name,username=username,posts=posts,postss=postss)
 
 
 
@@ -286,14 +302,16 @@ def followersepage():
 def followpageaction():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()   
-    name = session['name']
-    username = session['username']
-    cur.execute('INSERT INTO users_following (name_following_name,following_username) VALUES (%s, %s)', [name,username])
+    current_user = session['name']
+    name = request.form.get('name')
+    print(name)
+    cur.execute('UPDATE users SET follower_count = follower_count + 1 WHERE name = %s',[name])
+    cur.execute('UPDATE users SET following_count = following_count + 1 WHERE name = %s',[current_user])
     conn.commit()
     cur.close() 
     conn.close()
-    # cur.execute('UPDATE users SET follower_count) VALUES (%s, %s, %s, %s)', [])
-    return redirect('/profilepageaction')
+    
+    return redirect('/viewprofilepage')
 
 
 @app.route('/likebuttonaction',methods=['POST'])
@@ -307,9 +325,96 @@ def likebuttonaction():
     cur.close() 
     conn.close()
     return redirect('/homepage')
+
+@app.route('/commentaction',methods=['POST'])
+def commentaction():
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()
+    name = session['name']
+    username = session['username']
+    comment = request.form.get('comment')
+    image_id = request.form.get('image_id')
+
+    cur.execute('INSERT INTO users_post (image_id,comments_name,comments_username,comments) VALUES (%s, %s, %s, %s)', [image_id,name,username,comment])
+    
+    conn.commit()
+    cur.close() 
+    conn.close()
+
+    return redirect('/homepage')    
+
+
+
+@app.route('/viewprofilepage',methods=['POST'])
+def viewprofilepage():
+
+    name = request.form.get('name')
+
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()
+
     
 
+    posts = []
+    postss= []
+    results = cur.execute(f'SELECT * FROM users_post WHERE name = %s', [name])
+
+    results = cur.fetchall()
+    
+    
+
+    for row in results:
+        image_id,name,img_url,description,like_counter = row
+        posts.append([image_id,name,img_url,description,like_counter])
+
+    xd = cur.execute(f'SELECT follower_count,following_count FROM users WHERE name = %s', [name])
+
+    xd = cur.fetchall()
+
+    for follow in xd:
+        follower_count,following_count = follow
+        postss.append([follower_count,following_count])
+
+    cur.close() 
+    conn.close()
+
+
+    
+    return render_template("viewprofilepage.html",posts=posts,name=name,postss=postss)
+
+@app.route('/displayallusers')
+def displayallusers():
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()
+    
+    users = []
+    
+
+    result = cur.execute('SELECT id,name,username FROM users')
+
+    result = cur.fetchall()
+ 
+    
+
+    
+    for row in result:
+        id,name,username = row
+        users.append([id,name,username])
+        
   
+    print("hello")
+    # session['searched_username'] = username
+    # session['sear']
+
+
+    cur.close()
+    conn.close()
+
+
+    return render_template('/displayallusers.html',users = users)
+
+
+
 if __name__ == '__main__':
     # Import the variables from the .env file
     from dotenv import load_dotenv

@@ -28,6 +28,7 @@ html {
   width: auto;
   height:auto;
   margin-bottom:-400px;
+  padding-top:140px;
   
  
 }
@@ -74,7 +75,6 @@ html {
   border: 5px solid #555;
   position: relative;
   right:6px;
-  max-height: 850px;
 }
 
 .searchTerm{
@@ -140,18 +140,25 @@ html {
   -webkit-transition: box-shadow 0.25s;
   transition: box-shadow 0.25s;
   color: white;
-  text-align: right;
-  position:relative;
-  float:right;
-  right: 100px;
-  bottom: 80px;
+  margin:auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  left:120px;
+  bottom: 90px;
 }
 
 #namelol{
-  font-size: 20px;
+  font-size: 50px;
   font-family: 'Cabin', sans-serif;
   padding-left: 40px;
   text-decoration: underline;
+  margin:auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
 }
 
 #usernamelol{
@@ -255,37 +262,42 @@ html {
     top:277px;
   }
 
-  .allusersbutton{
-    width: 120px;
-      border: 5em;
-      height:44px;
-      cursor: pointer;
-      outline: none;
-      font-size: 16px;
-      -webkit-transform: translate(0);
-      transform: translate(0);
-      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
-      padding: 0.7em 2em;
-      border-radius: 1px;
-      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
-      -webkit-transition: box-shadow 0.25s;
-      transition: box-shadow 0.25s;
-      color: white;
-
-      position: relative;
-      float: right;
-      top: 85px;
-      left: 140px;
-      text-align: center;
+  #following {
+    font-family: 'Cabin', sans-serif;
+    color: #555;
+    padding-left: 80px;
+    position: relative;
+    float:right;
+    bottom: 120px;
+    right:140px;
+   
   }
-  #like{
+  #followers{
+    font-family: 'Cabin', sans-serif;
+    color: rgb(50, 50, 50);
+    padding-right: 20px;
+    position: relative;
+    left:130px;
+    top:23px;
+
+  }
+/* 
+  #stats{
+    margin:auto;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    
+  } */
+
+  #lfollower{
+    font-family: 'Cabin', sans-serif;
+    padding-left:180px;
+  }
+  #lfollowing{
     font-family: 'Cabin', sans-serif;
     position: relative;
     float: right;
-  }
-
-  .like{
-    position: relative;
-    float: right;
-    bottom:22px;
+    right:10px;
+    bottom:70px;
   }
