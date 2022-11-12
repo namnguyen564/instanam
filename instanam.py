@@ -349,7 +349,7 @@ def commentaction():
 def viewprofilepage():
 
     name = request.form.get('name')
-
+    print(name)
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
 

@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel = "stylesheet" href="/static/displayallusers.css">
+    <link rel="stylesheet" href="/static/displayallusers.css">
 </head>
+
 <body>
     <h1 id="title">All Users:</h1>
-    
-    {% for id,name,username in users %}
-    <li id="list">
-        <p1 id = 'name'>{{name}}</p1>
-        <p></p>
-        <p1 id ='username'>Username: {{username}}</p1>
-        <form method="POST" action = '/viewprofilepage' >
-            <button type="hidden" class='bn33' name = "name" value ={{name}}>View Page</button>
+    <ul>
+        {% for id,name,username in users %}
+        <li id="list">
+            <p id='name'>{{name}}</p>
+            <p></p>
+            <p id="username">Username: {{username}}</p>
+            <form method="POST" action="/viewprofilepage">
+                <button class="bn33" name="name" value="{{name}}">View Page</button>
             </form>
-    </li>
-    {% endfor %}
+        </li>
+        {% endfor %}
+    </ul>
 </body>
+
 </html>
