@@ -70,12 +70,20 @@ def loginpageaction():
     print(password)
 
 
-    hashed_password = cur.execute(f'SELECT password_hash FROM users WHERE username = %s', [username])
-    hashed_password, = cur.fetchone()
+    hashed_password = cur.execute(f'SELECT password_hash,id,name FROM users WHERE username = %s', [username])
+    # hashed_password, = cur.fetchone()
+    #
+    user_record = cur.fetchone()
+    # (, , , )
+    print(user_record)
+    
+    
+    if user_record is None:
+        session['incorrect'] = "Invalid Username "
+        return redirect('/')
+
+    hashed_password,id,name = user_record
     print(hashed_password)
-    # if hashed_password is None:
-    #     session['incorrect'] = "Incorrect Username or Password"
-    #     return redirect('/')
 
     print(password)
     valid = bcrypt.checkpw(password.encode(), hashed_password.encode())
@@ -298,13 +306,14 @@ def followersepage():
     return render_template("followerspage.html")
 
 
-@app.route("/followpageaction",methods=['GET'])
+@app.route("/followpageaction",methods=['POST'])
 def followpageaction():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()   
     current_user = session['name']
     name = request.form.get('name')
     print(name)
+    print(current_user)
     cur.execute('UPDATE users SET follower_count = follower_count + 1 WHERE name = %s',[name])
     cur.execute('UPDATE users SET following_count = following_count + 1 WHERE name = %s',[current_user])
     conn.commit()

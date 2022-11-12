@@ -286,3 +286,15 @@ html {
    #l{
     font-family: 'Cabin', sans-serif;
   }
+
+  #like{
+    font-family: 'Cabin', sans-serif;
+    position: relative;
+    float: right;
+  }
+
+  .like{
+    position: relative;
+    float: right;
+    bottom:22px;
+  }
