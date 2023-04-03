@@ -12,7 +12,7 @@ DB_URL = 'postgresql://{PGUSER}:{PGPASSWORD}@{PGHOST}:{PGPORT}/{PGDATABASE}'.for
     PGPASSWORD='44kbk3ffrBdxNc2V6aOG',
     PGHOST='containers-us-west-113.railway.app',
     PGPORT='6109',
-    PGDATABASE='railway'
+    PGDATABASE='railway'    
 )
 
 
@@ -78,7 +78,7 @@ def loginpageaction():
     
     username = request.form['username']    
     password = request.form['password']
-    print(password)
+   
 
 
     hashed_password = cur.execute(f'SELECT password_hash,id,name FROM users WHERE username = %s', [username])
