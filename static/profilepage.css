@@ -1,62 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,500&display=swap");
 
-
-#title{
- 
-  font-family: 'Righteous', cursive;
+#title {
+  font-family: "Righteous", cursive;
   font-size: 50px;
   /* text-decoration: underline; */
   padding-top: 10px;
   padding-left: 40px;
- 
 }
 html {
   height: 100%;
   /* background-color: rgb(177, 218, 230); */
   background-color: blanchedalmond;
-  
-  
-
+  background-color: rgb(255, 255, 255);
 }
 
-#complete{
+#complete {
   flex-direction: column;
   column-gap: 0px;
-  margin-bottom:20px;
-  /* height:auto; */
+  margin-bottom: 20px;
+  /* height: auto; */
   width: auto;
-  height:auto;
-  margin-bottom:-400px;
-  padding-top:140px;
-  
- 
+  height: auto;
+  margin-bottom: -500px;
+
+  margin-bottom: 40px;
 }
-.container {  
+.container {
   width: 450px;
   height: auto;
   justify-content: center;
   /* display: flex; */
   flex-direction: column;
-  margin:auto;
-  
+  margin: auto;
   background-color: rgb(255, 255, 255);
-  border-color: rgb(45, 45, 45);
+
+  border-color: rgb(255, 255, 255);
   border-style: solid;
+
   padding-right: 20px;
-  padding-left:20px;
-  position:relative;
-  /* bottom:400px; */
+  padding-left: 20px;
+
   padding-bottom: 30px;
-  position: relative;
-  bottom:480px;
-  margin-bottom: 50px; 
+
+  margin-bottom: 50px;
   max-height: 1000px;
-  
+  margin-top: 50px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-#commentbox{
-  width:300px;
+#commentbox {
+  width: 300px;
   height: 400px;
   background-color: rgb(248, 255, 149);
   border-color: rgb(45, 45, 45);
@@ -64,71 +59,63 @@ html {
   /* padding-left:90px; */
   position: relative;
   left: 75px;
-  top:25px;
+  top: 25px;
 }
-
 
 .container img {
   width: 100%;
   height: auto;
   text-align: center;
-  border: 5px solid #555;
+  /* border: 5px solid #555; */
   position: relative;
-  right:6px;
+  right: 6px;
   max-height: 850px;
+  border-radius: 3px;
 }
 
-.searchTerm{
- 
+.searchTerm {
   justify-content: center;
   display: flex;
-  margin:auto;
-  width:500px;
-  height:40px;
-} 
+  margin: auto;
+  width: 500px;
+  height: 40px;
+}
 
-#button{
+#button {
   vertical-align: middle;
   height: 45px;
   justify-content: center;
   display: flex;
-  margin:auto; 
+  margin: auto;
 }
 
-
-#toprow{
-   justify-content: center;
+#toprow {
+  justify-content: center;
   display: flex;
-  margin:auto; 
+  margin: auto;
   grid-column-start: 1;
   grid-column-end: 2;
   padding-top: 55px;
-  
 }
 
-#name{
-  font-family: 'Cabin', sans-serif;
+#name {
+  font-family: "Cabin", sans-serif;
   text-decoration: underline;
-  
 }
 
-#description{
+#description {
   font-size: 20px;
-  font-family: 'Cabin', sans-serif;
-  
+  font-family: "Cabin", sans-serif;
 }
-
 
 .grid-container {
-  
   display: grid;
-  grid-template-columns: 450px 550px 
-  
+  grid-template-columns: 450px 550px;
 }
 
 .bn33 {
   border: 5em;
-  height:44px;
+  height: 44px;
   cursor: pointer;
   outline: none;
   font-size: 16px;
@@ -141,38 +128,37 @@ html {
   -webkit-transition: box-shadow 0.25s;
   transition: box-shadow 0.25s;
   color: white;
-  margin:auto;
+  margin: auto;
   justify-content: center;
   display: flex;
   align-items: center;
   position: relative;
-  left:10px;
-   top: 15px;
+  left: 10px;
+  top: 15px;
 }
 
-#namelol{
+#namelol {
   font-size: 50px;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   padding-left: 40px;
   text-decoration: underline;
-  margin:auto;
+  margin: auto;
   justify-content: center;
   display: flex;
   align-items: center;
-
 }
 
-#usernamelol{
+#usernamelol {
   font-size: 20px;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   padding-left: 40px;
   text-decoration: underline;
 }
 
-.profilebutton{
-  width:120px;
+.profilebutton {
+  width: 120px;
   border: 5em;
-  height:44px;
+  height: 44px;
   cursor: pointer;
   outline: none;
   font-size: 16px;
@@ -187,19 +173,18 @@ html {
   color: white;
 
   text-align: right;
-  position:relative;
-  float:right;
-  left:20px;
-  bottom:100px;
+  position: relative;
+  float: right;
+  left: 20px;
+  bottom: 100px;
+
   /* bottom: 20px; */
-  
-  
 }
 
-.postbutton{
-  width:120px;
+.postbutton {
+  width: 120px;
   border: 5em;
-  height:44px;
+  height: 44px;
   cursor: pointer;
   outline: none;
   font-size: 16px;
@@ -213,88 +198,104 @@ html {
   transition: box-shadow 0.25s;
   color: white;
 
-  position:relative;
+  position: relative;
   /* top:7px; */
-  float:right;
-  right:100px;
-  bottom:12px;
+  float: right;
+  right: 100px;
+  bottom: 12px;
 }
 
-
-#commenttitle{
-  font-family: 'Cabin', sans-serif;
+#commenttitle {
+  font-family: "Cabin", sans-serif;
   font-size: 15px;
   position: relative;
-  left: 15px;;
+  left: 15px;
   text-decoration: underline;
-
 }
 
-.line{
+.line {
   width: 300px;
   height: 0px;
   border-bottom: 1px solid black;
   position: absolute;
   border-width: medium;
-  }
+}
 
+.comment {
+  width: 40%;
+  height: 100px;
+  padding: 10px;
+  background-color: #d0e2bc;
+}
 
-  
-  .comment {
-    width: 40%;
-    height: 100px;
-    padding: 10px;
-    background-color: #d0e2bc;
-  }
+.commentbar {
+  width: 240px;
+  height: 40px;
+  position: relative;
+  top: 278px;
+}
 
-  .commentbar{
-    width:240px;
-    height:40px;
-    position:relative;
-    top:278px;
-  
-  }
+.commentbutton {
+  width: 52px;
+  height: 46px;
+  position: relative;
+  float: right;
+  top: 277px;
+}
 
-  .commentbutton{
-    width:52px;
-    height:46px;
-    position: relative;
-    float:right;
-    top:277px;
-  }
+#following {
+  font-family: "Cabin", sans-serif;
+  color: #555;
+  padding-left: 80px;
+}
+#followers {
+  font-family: "Cabin", sans-serif;
+  color: rgb(50, 50, 50);
+  padding-right: 20px;
+}
 
-  #following {
-    font-family: 'Cabin', sans-serif;
-    color: #555;
-    padding-left: 80px;
-   
-  }
-  #followers{
-    font-family: 'Cabin', sans-serif;
-    color: rgb(50, 50, 50);
-    padding-right: 20px;
-  }
+#stats {
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+*/ #l {
+  font-family: "Cabin", sans-serif;
+}
 
-  #stats{
-    margin:auto;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    
-  } */
+#like {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
 
-   #l{
-    font-family: 'Cabin', sans-serif;
-  }
+  font-family: "Cabin", sans-serif;
+  position: relative;
+  float: right;
+  left: 45px;
+  top: 5px;
+}
 
-  #like{
-    font-family: 'Cabin', sans-serif;
-    position: relative;
-    float: right;
-  }
+.like {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  position: relative;
+  float: right;
+  bottom: 22px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  cursor: pointer;
+  right: 5px;
+}
 
-  .like{
-    position: relative;
-    float: right;
-    bottom:22px;
-  }
+#lfollower {
+  font-family: "Cabin", sans-serif;
+}
+
+#lfollowing {
+  font-family: "Cabin", sans-serif;
+}

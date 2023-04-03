@@ -11,6 +11,8 @@ CLOUDINARY_CLOUD = os.environ.get('CLOUDINARY_CLOUD')
 CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
 CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
 
+application_secret_key = os.environ.get("SECRET_KEY")
+
 cloudinary.config(
     cloud_name = CLOUDINARY_CLOUD,
     api_key = CLOUDINARY_API_KEY,
@@ -19,7 +21,7 @@ cloudinary.config(
 # from models.db import sql_select
 
 app = Flask(__name__)
-
+#to do
 app.config['SECRET_KEY'] = 'This is a pretend secret key'
 
 @app.route("/")
@@ -164,7 +166,9 @@ def displayuserspageaction():
     users = []
     print(searched)
     # result = cur.execute('SELECT name,username FROM users WHERE username LIKE 'pop% )
-    result = cur.execute("SELECT id,name,username FROM users WHERE username LIKE '%%' || %s || '%%' ", [searched])
+    result = cur.execute("SELECT id,name,username FROM users WHERE name LIKE '%%' || %s || '%%' ", [searched])
+    # result = cur.execute("SELECT id, name, username FROM users WHERE username LIKE '%%' || %s || '%%' OR name LIKE '%%' || %s || '%%'", [searched, searched])
+
     # "select * from table where {} like '%%' || %s || '%%'"
     # result = cur.execute( 'SELECT name FROM users')
     result = cur.fetchall()
@@ -229,29 +233,29 @@ def postimagepageaction():
 #PROFILE PAGE
 @app.route("/profilepageaction",methods=['GET'])
 def profilepageaction():
-    # conn = psycopg2.connect(DB_URL)
-    # cur = conn.cursor()
+    conn = psycopg2.connect(DB_URL)
+    cur = conn.cursor()
 
-    # id = session['id']
+    id = session['id']
 
-    # posts = []
-    # results = cur.execute(f'SELECT name,img_url,description FROM users_post WHERE id = %s', [id])
+    posts = []
+    results = cur.execute(f'SELECT name,img_url,description FROM users_post WHERE id = %s', [id])
 
-    # results = cur.fetchall()
+    results = cur.fetchall()
     
     
 
-    # for row in results:
-    #     name,img_url,description = row
-    #     posts.append([name,img_url,description])
+    for row in results:
+        name,img_url,description = row
+        posts.append([name,img_url,description])
 
 
 
 
     return redirect("/profilepage")
 
-@app.route("/profilepage",methods=['GET'])
-def profilepage():
+@app.route("/profilepage/<name>",methods=['GET'])
+def profilepage(name):
     name = session['name'] 
     username = session['username']
 
@@ -319,8 +323,7 @@ def followpageaction():
     conn.commit()
     cur.close() 
     conn.close()
-    
-    return redirect('/viewprofilepage')
+    return redirect(url_for('viewprofilepage', name=name, _external=True))
 
 
 @app.route('/likebuttonaction',methods=['POST'])
@@ -354,10 +357,13 @@ def commentaction():
 
 
 
-@app.route('/viewprofilepage',methods=['POST'])
-def viewprofilepage():
 
-    name = request.form.get('name')
+
+#TO DO
+@app.route('/viewprofilepage/<name>',methods=['GET'])
+def viewprofilepage(name):
+
+    
     print(name)
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()

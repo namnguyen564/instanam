@@ -1,28 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,500&display=swap');
-
-*{
-    font-family: 'Cabin', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+* {
+  font-family: "Cabin", sans-serif;
 }
-#title{
- 
-    font-family: 'Cabin', sans-serif;
-    font-size: 50px;
-    /* text-decoration: underline; */
-    padding-top: 10px;
-    padding-left: 40px;
-    justify-content: center;
-    display: flex;
-    margin:auto
+#title {
+  font-family: "Righteous", cursive;
+  font-size: 50px;
+  /* text-decoration: underline; */
+  /* padding-top: 10px;
+  padding-left: 60px; */
+  color: #333;
+  text-align: center; /* added */
+  margin: auto;
 }
 
 html {
-    height: 100%;
-    /* background-color: rgb(177, 218, 230); */
-    background-color: blanchedalmond;
-    
+  height: 100%;
+  /* background-color: rgb(177, 218, 230); */
+  background-color: rgb(255, 255, 255);
 }
-  
-  /* }
+body {
+  text-align: center;
+}
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-top: 50px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="file"] {
+  margin-bottom: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+label[for="description-input"] {
+  display: block;
+  margin-top: 10px; /* add some space above the label */
+}
+
+input[name="description"] {
+  box-sizing: border-box; /* include padding and border in element's total width/height */
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px; /* add some space below the input */
+}
+/* }
 .column{
     justify-content: center;
   display: flex;

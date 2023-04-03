@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/static/loginpage.css">
-</head>
-<body>
-
- <h1 id="title">INSTANAM</h1>
- <!-- {% if incorrect %}
+    <link rel="stylesheet" href="/static/loginpage.css" />
+  </head>
+  <body>
+    <h1 id="title">Instanam</h1>
+    <!-- {% if incorrect %}
     {{incorrect}}
  {% endif %} -->
 
- {% if session.incorrect %}
- {{session.incorrect}}
-{% endif %}
- <form id="login-form" method="POST" action="/loginpageaction">
-    <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
-    <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-    <input type="submit" value="Login" id="login-form-submit">
-  </form>
+    {% if session.incorrect %}
+    <div class="incorrect-message">{{ session.incorrect }}</div>
+    {% endif %}
 
-  <form id="login-form" method="GET" action="/signuppage">
-   <input type="submit" value="Sign Up" id="test-form-submit">
-</form>
+    <form id="login-form" method="POST" action="/loginpageaction">
+      <input
+        type="text"
+        name="username"
+        id="username-field"
+        class="login-form-field"
+        placeholder="Username"
+      />
+      <input
+        type="password"
+        name="password"
+        id="password-field"
+        class="login-form-field"
+        placeholder="Password"
+      />
+      <input type="submit" value="Login" id="login-form-submit" />
+    </form>
 
-  <!-- <form id="test-form" method="POST" action="/signuppage">
+    <form id="login-form" method="GET" action="/signuppage">
+      <input type="submit" value="Sign Up" id="test-form-submit" />
+    </form>
+
+    <!-- <form id="test-form" method="POST" action="/signuppage">
   
    <input type="submit" value="Sign Up" id="test-form-submit">
   
  </form> -->
 
-
-
- <!-- <form method="POST" action="/add_menu_item_action">
+    <!-- <form method="POST" action="/add_menu_item_action">
     <label>Email <input type ="text" name="email"></label>
     <label>Password <input type ="password" name="password"></label>
     <input type= "submit"> -->
-<!-- </form> -->
-
-
-
-
-
-</body>
+    <!-- </form> -->
+  </body>
 </html>

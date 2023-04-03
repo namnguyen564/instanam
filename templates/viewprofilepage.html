@@ -1,55 +1,37 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet"  href="/static/viewprofilepage.css">
-    <title>Document</title>
-</head>
-<body>
-    <h1 id="namelol">  {{name}} </h1>
-    {% for follower_count,following_count in postss %}
-    <div id="stats">
-    <h1 id="followers">Followers:</h1>
-    <h1 id="lfollower">{{follower_count}}</h1>
-    <h1 id="following">Following:</h1>
-    <h1 id ='lfollowing'>    {{following_count}}<h1>
-    {% endfor %}
-    <form method="POST" action="/followpageaction">
-        <button class="bn33" name = "name" value = "{{name}}" >Follow</button>
-      </form> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/viewprofilepage.css" />
+    <title>Instanam</title>
+  </head>
+  <body>
+    <h1 id="namelol">{{name}}</h1>
 
     {% for image_id,name,img_url,description,like_counter in posts %}
     <div id="complete">
-        <div id="commentbox">
-        <div id="commenttitle">
-          <h1>Comments:</H1>
-        </div>
-        <div class="line"></div>
-        
-          <form action="/commentaction" method="POST">
-          <input type="text" class="commentbar"   name = "comment" placeholder="Comment Your Thoughts!" >
-          
-          <button type="submit" class="commentbutton"  type="hidden" value = {{image_id}} name = "image_id"></button>
-          </form>
-        </div>
-    
-        <div class="container">
-            <h1 id="name">{{name}}</h1>
-            <img src={{img_url}}>
-            <p1 id ="description">{{description}}</p1>
-            <form method="POST" action="/likebuttonaction">
-              
-              <button type="hidden" class = 'like'  value = {{image_id}} name = "image_id">Like</button>
-            </form>
-            
-            <!-- <form  action="/commentform"><button>Comment</button></form> -->
-            <p1 id="like">{{like_counter}} Likes</p1>
-             <!-- <button data-modal-target="#modal">Comment</button></form> -->
-        </div>
-      </div>
-    {% endfor %}
+      <div class="container">
+        <h1 id="name">{{name}}</h1>
+        <img src="{{img_url}}" />
+        <p1 id="description">{{description}}</p1>
+        <form method="POST" action="/likebuttonaction">
+          <button
+            type="hidden"
+            class="like"
+            value="{{image_id}}"
+            name="image_id"
+          >
+            Like
+          </button>
+        </form>
 
-</body>
+        <!-- <form  action="/commentform"><button>Comment</button></form> -->
+        <p1 id="like">{{like_counter}} Likes</p1>
+        <!-- <button data-modal-target="#modal">Comment</button></form> -->
+      </div>
+    </div>
+    {% endfor %}
+  </body>
 </html>
