@@ -5,7 +5,16 @@ import cloudinary
 import cloudinary.uploader
 import os
 
-DB_URL = os.environ.get('DATABASE_URL', 'dbname=instanam')
+# DB_URL = os.environ.get('DATABASE_URL', 'dbname=instanam')
+
+DB_URL = 'postgresql://{PGUSER}:{PGPASSWORD}@{PGHOST}:{PGPORT}/{PGDATABASE}'.format(
+    PGUSER='postgres',
+    PGPASSWORD='44kbk3ffrBdxNc2V6aOG',
+    PGHOST='containers-us-west-113.railway.app',
+    PGPORT='6109',
+    PGDATABASE='railway'
+)
+
 
 CLOUDINARY_CLOUD = os.environ.get('CLOUDINARY_CLOUD')
 CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
